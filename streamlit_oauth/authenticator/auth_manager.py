@@ -169,7 +169,7 @@ class AuthManager:
             raise ValueError("Location must be one of 'main' or 'sidebar'")
         if location == "main":
             if st.button(button_name):
-                self.cookie_manager["token"] = None
+                self.cookie_manager["token"] = 'Logged Out'
                 self.cookie_manager.save()                
                 st.session_state["token"] = None
                 st.session_state["user_id"] = None
@@ -179,7 +179,7 @@ class AuthManager:
                 # st.session_state["login_failure"] = None
         elif location == "sidebar":
             if st.sidebar.button(button_name):
-                self.cookie_manager["token"] = None
+                self.cookie_manager["token"] = 'Logged Out'
                 self.cookie_manager.save()                
                 st.session_state["token"] = None
                 st.session_state["user_id"] = None
