@@ -48,26 +48,14 @@ class AuthManager:
             self.verify_token(token, authorization_url)
         except:
             st.session_state["authenticated"] = False
-            st.write(
-                f"""<h1>
-                This account is not allowed or page was refreshed.
-                Please try again: <a target="_self"
-                href="{authorization_url}">url</a></h1>""",
-                unsafe_allow_html=True,
-            )
+            login_page(self.page_name, authorization_url, error_state=True)
 
     def verify_token(self, token, authorization_url): 
         # Check if token has expired:
         if token.is_expired():
             if token.is_expired():
                 st.session_state["authenticated"] = False
-                st.write(
-                    f"""<h1>
-                Login session has ended,
-                please <a target="_self" href="{authorization_url}">
-                login</a> again.</h1>
-                """
-                )
+                login_page(self.page_name, authorization_url, error_state=True)
         else:
             st.session_state["token"] = token
             user_id, user_email = "test", "test@gmail.com"
@@ -81,14 +69,7 @@ class AuthManager:
             try:
                 code = st.experimental_get_query_params()["code"]
             except:
-                login_page(self.page_name, authorization_url)
-            #     st.write(
-            #     f"""<h1>
-            #      <a target="_self"
-            #     href="{authorization_url}">Please login using OKTA</a></h1>""",
-            #     unsafe_allow_html=True,
-            # )
-                # webbrowser.open(authorization_url)
+                login_page(self.page_name, authorization_url, error_state=False)
             else:
                 self.verify_code(code, authorization_url)
         else:
