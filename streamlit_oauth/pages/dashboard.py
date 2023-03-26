@@ -59,5 +59,4 @@ def dashboard():
     if st.session_state.load_model:
         st.success("Done!")
 
-x
 
