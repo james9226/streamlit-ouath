@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 from streamlit_oauth.authenticator.auth_manager import AuthManager
 from streamlit_oauth.authenticator.config import okta_client_config, redirect_uri
 from streamlit_oauth.pages.dashboard import dashboard
@@ -33,7 +33,7 @@ def set_test_cookie():
     'test123',
     'ThisIsATest',
     expires_at=datetime.now()
-    + datetime.timedelta(seconds=60 * 60),
+    + timedelta(seconds=60 * 60),
 )
 
 
