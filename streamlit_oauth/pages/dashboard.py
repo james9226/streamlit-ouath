@@ -59,17 +59,5 @@ def dashboard():
     if st.session_state.load_model:
         st.success("Done!")
 
-
-    def set_test_cookie():
-        cookie_manager = stx.CookieManager()
-        cookie_manager.set(
-        'test123',
-        'ThisIsATest',
-        expires_at=datetime.now()
-        + datetime.timedelta(seconds=60 * 60),
-    )
-
-
-    if st.button('Press to set a cookie!', key=2151):
-        set_test_cookie()
+x
 
