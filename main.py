@@ -26,7 +26,9 @@ auth_manager.authenticate()
 
 auth_manager.authenticated(dashboard)
 
-from streamlit_cookies_manager import EncryptedCookieManager
+auth_manager.logout(button_name='Logout!')
+
+# from streamlit_cookies_manager import EncryptedCookieManager
 
 # # This should be on top of your script
 # cookies = EncryptedCookieManager(
@@ -49,14 +51,14 @@ from streamlit_cookies_manager import EncryptedCookieManager
 
 
 
-def set_test_cookie():
-    auth_manager.cookie_manager.set(
-    'test123',
-    'ThisIsATest',
-    expires_at=datetime.now()
-    + timedelta(seconds=60 * 60),
-)
+# def set_test_cookie():
+#     auth_manager.cookie_manager.set(
+#     'test123',
+#     'ThisIsATest',
+#     expires_at=datetime.now()
+#     + timedelta(seconds=60 * 60),
+# )
 
 
-if st.button('Press to set a cookie!', key=2151):
-    set_test_cookie()
+# if st.button('Press to set a cookie!', key=2151):
+#     set_test_cookie()
