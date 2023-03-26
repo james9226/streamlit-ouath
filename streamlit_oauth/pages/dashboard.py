@@ -60,14 +60,14 @@ def dashboard():
         st.success("Done!")
 
 
-    # if st.button('Press to set a cookie!'):
-    #     set_test_cookie()
+    if st.button('Press to set a cookie!'):
+        set_test_cookie()
 
-    # def set_test_cookie():
-    #     cookie_manager = stx.CookieManager()
-    #     cookie_manager.set(
-    #     'test123',
-    #     'ThisIsATest',
-    #     expires_at=datetime.now()
-    #     + datetime.timedelta(seconds=60 * 60),
-    # )
+    def set_test_cookie():
+        cookie_manager = stx.CookieManager()
+        cookie_manager.set(
+        'test123',
+        'ThisIsATest',
+        expires_at=datetime.now()
+        + datetime.timedelta(seconds=60 * 60),
+    )
