@@ -77,7 +77,14 @@ class AuthManager:
             try:
                 code = st.experimental_get_query_params()["code"]
             except:
-                st.warning('Please login through OAUTH in the new window')
+                st.warning('Please login through OAUTH')
+                st.write(
+                    f"""<h1>
+                Login Required,
+                please <a target="_self" href="{authorization_url}">
+                login</a> again.</h1>
+                """
+                )                
                 webbrowser.open(authorization_url)
             else:
                 self.verify_code(code, authorization_url)
