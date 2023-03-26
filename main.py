@@ -14,6 +14,7 @@ st.set_page_config(
 auth_manager = AuthManager(
     client_config=okta_client_config,
     redirect_uri=redirect_uri,
+    page_name='Uber Dashboard'
 )
 
 auth_manager.authenticate()
