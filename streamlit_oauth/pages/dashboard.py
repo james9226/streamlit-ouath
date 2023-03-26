@@ -1,8 +1,10 @@
+import datetime
 import streamlit as st
 import numpy as np
 from streamlit_oauth.services.db.s3_connector import load_data
 from streamlit_oauth.services.ml_model.model import expensive_model
 from streamlit_oauth.utils.formattor import number_format
+import extra_streamlit_components as stx
 
 
 def dashboard():
@@ -56,3 +58,16 @@ def dashboard():
 
     if st.session_state.load_model:
         st.success("Done!")
+
+
+    # if st.button('Press to set a cookie!'):
+    #     set_test_cookie()
+
+    # def set_test_cookie():
+    #     cookie_manager = stx.CookieManager()
+    #     cookie_manager.set(
+    #     'test123',
+    #     'ThisIsATest',
+    #     expires_at=datetime.now()
+    #     + datetime.timedelta(seconds=60 * 60),
+    # )
