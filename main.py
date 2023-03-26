@@ -14,7 +14,11 @@ st.set_page_config(
 auth_manager = AuthManager(
     client_config=okta_client_config,
     redirect_uri=redirect_uri,
-    page_name='Uber Dashboard'
+    page_name='Uber Dashboard',
+    cookies_enabled=True,
+    cookie_name='ouath-streamlit',
+    cookie_expiry_seconds=60*60,
+    cookie_signing_key=st.secrets["cookie_signing_key"]
 )
 
 auth_manager.authenticate()

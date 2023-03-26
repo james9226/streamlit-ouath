@@ -16,6 +16,7 @@ streamlit = "^1.13.0"
 PyJWT = "^2.6.0"
 httpx-oauth = "^0.11.0"
 bokeh = "2.4.3"
+extra-streamlit-components = "^0.1.56"
 
 [tool.poetry.group.dev]
 optional = true
