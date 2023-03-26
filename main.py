@@ -28,8 +28,7 @@ auth_manager.authenticated(dashboard)
 
 
 def set_test_cookie():
-    cookie_manager = auth_manager.cookie_manager
-    cookie_manager.set(
+    auth_manager.cookie_manager.set(
     'test123',
     'ThisIsATest',
     expires_at=datetime.now()
