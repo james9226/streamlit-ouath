@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 import streamlit as st
 import numpy as np
 from streamlit_oauth.services.db.s3_connector import load_data
