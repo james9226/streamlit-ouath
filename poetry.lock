@@ -350,6 +350,17 @@ python-versions = "*"
 tests = ["asttokens", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "extra-streamlit-components"
+version = "0.1.56"
+description = "An all-in-one place, to find complex or just natively unavailable components on streamlit."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+streamlit = ">=0.87"
+
+[[package]]
 name = "fastjsonschema"
 version = "2.16.3"
 description = "Fastest Python implementation of JSON schema"
@@ -2131,7 +2142,7 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.9.7 || >3.9.7,<3.11"
-content-hash = "cf3c95bc2a5ca3e4b749d16e9c9c967fb79a3cc71e27f2800314f7e238512875"
+content-hash = "b1bfe17386e500dc3ce0bf55c68011b4c04b6e95529eb539453cb34b596f1a2d"
 
 [metadata.files]
 altair = [
@@ -2481,6 +2492,10 @@ exceptiongroup = [
 executing = [
     {file = "executing-1.2.0-py2.py3-none-any.whl", hash = "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc"},
     {file = "executing-1.2.0.tar.gz", hash = "sha256:19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107"},
+]
+extra-streamlit-components = [
+    {file = "extra_streamlit_components-0.1.56-py3-none-any.whl", hash = "sha256:a1daed730ae7da50b5daa73095f0509c9be0c286f5902f2987e5b4031904c182"},
+    {file = "extra_streamlit_components-0.1.56.tar.gz", hash = "sha256:d553ce2f7c02bdd57f66c8c7a29eafc0cb75bfd743ab48d615b21acda185534f"},
 ]
 fastjsonschema = [
     {file = "fastjsonschema-2.16.3-py3-none-any.whl", hash = "sha256:04fbecc94300436f628517b05741b7ea009506ce8f946d40996567c669318490"},
