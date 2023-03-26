@@ -1,0 +1,9 @@
+[theme]
+base="dark"
+primaryColor="#00D9C5"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+runOnSave = true
