@@ -24,5 +24,3 @@ auth_manager = AuthManager(
 auth_manager.authenticate()
 
 auth_manager.authenticated(dashboard)
-
-auth_manager.authenticated(auth_manager.logout, button_name='Logout')
