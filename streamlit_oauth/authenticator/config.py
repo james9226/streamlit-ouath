@@ -6,4 +6,4 @@ okta_client_config = {
         "okta_domain": st.secrets["okta"]["okta_domain"],
 }
 
-redirect_uri = "http://localhost:8501"
+redirect_uri = st.secrets["redirect_uri"]
