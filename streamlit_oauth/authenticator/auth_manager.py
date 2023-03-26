@@ -3,11 +3,15 @@ import asyncio
 from httpx_oauth.clients.okta import OktaOAuth2
 import webbrowser
 
+from streamlit_oauth.authenticator.login_page import login_page
+
 
 class AuthManager:
-    def __init__(self, client_config: dict, redirect_uri: str):
+    def __init__(self, client_config: dict, redirect_uri: str, page_name : str):
         self.client_config = client_config
         self.redirect_uri = redirect_uri
+        self.page_name = page_name
+
         self.state_manager(["token", "user_email", "user_id", "authenticated"])
         self.client = OktaOAuth2(**client_config)
 
@@ -77,15 +81,14 @@ class AuthManager:
             try:
                 code = st.experimental_get_query_params()["code"]
             except:
-                st.warning('Please login through OAUTH')
-                st.write(
-                    f"""<h1>
-                Login Required,
-                please <a target="_self" href="{authorization_url}">
-                login</a> again.</h1>
-                """
-                )                
-                webbrowser.open(authorization_url)
+                login_page(self.page_name, authorization_url)
+            #     st.write(
+            #     f"""<h1>
+            #      <a target="_self"
+            #     href="{authorization_url}">Please login using OKTA</a></h1>""",
+            #     unsafe_allow_html=True,
+            # )
+                # webbrowser.open(authorization_url)
             else:
                 self.verify_code(code, authorization_url)
         else:
