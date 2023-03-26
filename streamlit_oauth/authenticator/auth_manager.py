@@ -5,7 +5,8 @@ import streamlit as st
 import asyncio
 from httpx_oauth.clients.okta import OktaOAuth2
 from streamlit_oauth.authenticator.login_page import login_page
-import extra_streamlit_components as stx
+# import extra_streamlit_components as stx
+from streamlit_cookies_manager import EncryptedCookieManager
 
 
 class AuthManager:
@@ -25,8 +26,13 @@ class AuthManager:
         self.cookie_name = cookie_name
         self.cookie_signing_key = cookie_signing_key
         self.cookie_expiry_seconds = cookie_expiry_seconds
-        
-        self.cookie_manager = stx.CookieManager()
+
+        self.cookie_manager = EncryptedCookieManager(
+            prefix='streamlit/auth/cookies/',
+            password=cookie_signing_key
+        )      
+
+
         self.state_manager(["token", "user_email", "user_id", "authenticated"])
         self.client = OktaOAuth2(**client_config)
 
@@ -73,7 +79,11 @@ class AuthManager:
         if not self.cookies_enabled:
             return False 
 
-        cookie = self.cookie_manager.get(self.cookie_name)
+        st.write(self.cookie_manager)
+        if 'token' not in self.cookie_manager:
+            return False
+
+        cookie = self.cookie_manager['token']
         if cookie is not None:
             cookie = self.cookie_decode(cookie)
             if cookie is not False:
@@ -132,12 +142,14 @@ class AuthManager:
             st.session_state["user_id"] = user_email
 
             if self.cookies_enabled:
-                self.cookie_manager.set(
-                    self.cookie_name,
-                    self.cookie_encode(),
-                    expires_at=datetime.now()
-                    + timedelta(seconds=self.cookie_expiry_seconds),
-                )
+                self.cookie_manager["token"] = self.cookie_encode()
+
+                # self.cookie_manager.set(
+                #     self.cookie_name,
+                #     self.cookie_encode(),
+                #     expires_at=datetime.now()
+                #     + timedelta(seconds=self.cookie_expiry_seconds),
+                # )
 
             
             st.session_state["authenticated"] = True
@@ -172,6 +184,11 @@ class AuthManager:
                 st.session_state["authenticated"] = False
 
     def authenticate(self):
+
+        if not self.cookie_manager.ready():
+    # Wait for the component to load and send us current cookies.
+            st.stop()
+
         authorization_url = asyncio.run(self.get_authorization_url())
 
         if self._check_cookie():
