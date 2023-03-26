@@ -143,6 +143,7 @@ class AuthManager:
 
             if self.cookies_enabled:
                 self.cookie_manager["token"] = self.cookie_encode()
+                self.cookie_manager.save()
 
                 # self.cookie_manager.set(
                 #     self.cookie_name,
