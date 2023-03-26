@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import time
 import jwt
 import streamlit as st
 import asyncio
@@ -84,8 +85,7 @@ class AuthManager:
                         return True
         return False
 
-    @staticmethod
-    def state_manager(states):
+    def state_manager(self, states):
         for state in states:
             if state not in st.session_state:
                 st.session_state[state] = None
@@ -130,7 +130,6 @@ class AuthManager:
             user_id, user_email = "test", "test@gmail.com"
             st.session_state["user_id"] = user_id
             st.session_state["user_id"] = user_email
-            st.session_state["authenticated"] = True
 
             if self.cookies_enabled:
                 self.cookie_manager.set(
@@ -140,17 +139,82 @@ class AuthManager:
                     + timedelta(seconds=self.cookie_expiry_seconds),
                 )
 
+            
+            st.session_state["authenticated"] = True
+
+    def logout(self, button_name: str, location: str = "main"):
+        """
+        Creates a logout button.
+        Parameters
+        ----------
+        button_name: str
+            The rendered name of the logout button.
+        location: str
+            The location of the logout button i.e. main or sidebar.
+        """
+        if location not in ["main", "sidebar"]:
+            raise ValueError("Location must be one of 'main' or 'sidebar'")
+        if location == "main":
+            if st.button(button_name):
+                self.cookie_manager.delete(self.cookie_name)
+                st.session_state["token"] = None
+                st.session_state["user_id"] = None
+                st.session_state["user_email"] = None        
+                st.session_state["authenticated"] = False
+
+                # st.session_state["login_failure"] = None
+        elif location == "sidebar":
+            if st.sidebar.button(button_name):
+                self.cookie_manager.delete(self.cookie_name)
+                st.session_state["token"] = None
+                st.session_state["user_id"] = None
+                st.session_state["user_email"] = None        
+                st.session_state["authenticated"] = False
+
     def authenticate(self):
         authorization_url = asyncio.run(self.get_authorization_url())
-        if st.session_state["token"] is None and not self._check_cookie():
+
+        if self._check_cookie():
+            pass
+        elif st.session_state["token"] is None:
             try:
                 code = st.experimental_get_query_params()["code"]
+                self.verify_code(code, authorization_url)
             except:
                 login_page(self.page_name, authorization_url, error_state=False)
-            else:
-                self.verify_code(code, authorization_url)
         else:
             self.verify_token(st.session_state["token"], authorization_url)
+
+
+    # def authenticate(self):
+    #     authorization_url = asyncio.run(self.get_authorization_url())
+
+    #     self.state_manager(["token", "user_email", "user_id", "authenticated"])
+    #     time.sleep(1)
+
+    #     st.session_state['token'] = None
+
+    #     # if self._check_cookie():
+    #     #     pass
+    #     # if "token" not in st.session_state:
+    #     #     self.state_manager(["token", "user_email", "user_id", "authenticated"])
+    #     if st.session_state["token"] is None:
+    #         try:
+    #             code = st.experimental_get_query_params()["code"]
+    #         except:
+    #             login_page(self.page_name, authorization_url, error_state=False)
+    #     else:
+            # self.verify_code(code, authorization_url)
+
+        # if st.session_state["token"] is None and not self._check_cookie():
+        #     try:
+        #         code = st.experimental_get_query_params()["code"]
+        #     except:
+        #         login_page(self.page_name, authorization_url, error_state=False)
+        #     else:
+        #         self.verify_code(code, authorization_url)
+        # else:
+        #     self.verify_token(st.session_state["token"], authorization_url)
 
     def authenticated(self, page, *args, **kwargs):
         if st.session_state["authenticated"]:
