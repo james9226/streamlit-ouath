@@ -70,6 +70,6 @@ def dashboard():
     )
 
 
-    if st.button('Press to set a cookie!'):
+    if st.button('Press to set a cookie!', key=2151):
         set_test_cookie()
 
