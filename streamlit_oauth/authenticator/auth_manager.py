@@ -79,7 +79,7 @@ class AuthManager:
         if not self.cookies_enabled:
             return False 
 
-        st.write(self.cookie_manager)
+        # st.write(self.cookie_manager)
         if 'token' not in self.cookie_manager:
             return False
 
