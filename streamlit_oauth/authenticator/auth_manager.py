@@ -169,24 +169,26 @@ class AuthManager:
             raise ValueError("Location must be one of 'main' or 'sidebar'")
         if location == "main":
             if st.button(button_name):
-                self.cookie_manager["token"] = 'Logged Out'
-                self.cookie_manager.save()                
-                st.session_state["token"] = None
-                st.session_state["user_id"] = None
-                st.session_state["user_email"] = None        
-                st.session_state["authenticated"] = False
-                st.experimental_rerun()
+                with st.spinner():
+                    self.cookie_manager["token"] = 'Logged Out'
+                    self.cookie_manager.save()                
+                    st.session_state["token"] = None
+                    st.session_state["user_id"] = None
+                    st.session_state["user_email"] = None        
+                    st.session_state["authenticated"] = False
+                    st.experimental_rerun()
 
                 # st.session_state["login_failure"] = None
         elif location == "sidebar":
             if st.sidebar.button(button_name):
-                self.cookie_manager["token"] = 'Logged Out'
-                self.cookie_manager.save()                
-                st.session_state["token"] = None
-                st.session_state["user_id"] = None
-                st.session_state["user_email"] = None        
-                st.session_state["authenticated"] = False
-                st.experimental_rerun()
+                with st.spinner():
+                    self.cookie_manager["token"] = 'Logged Out'
+                    self.cookie_manager.save()                
+                    st.session_state["token"] = None
+                    st.session_state["user_id"] = None
+                    st.session_state["user_email"] = None        
+                    st.session_state["authenticated"] = False
+                    st.experimental_rerun()
 
     def authenticate(self):
 
