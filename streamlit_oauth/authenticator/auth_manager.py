@@ -175,6 +175,7 @@ class AuthManager:
                 st.session_state["user_id"] = None
                 st.session_state["user_email"] = None        
                 st.session_state["authenticated"] = False
+                st.experimental_rerun()
 
                 # st.session_state["login_failure"] = None
         elif location == "sidebar":
@@ -185,6 +186,7 @@ class AuthManager:
                 st.session_state["user_id"] = None
                 st.session_state["user_email"] = None        
                 st.session_state["authenticated"] = False
+                st.experimental_rerun()
 
     def authenticate(self):
 
