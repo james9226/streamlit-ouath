@@ -4,22 +4,14 @@ import streamlit as st
 
 def navigate_to(url):
     # Hacky solution, need to find literally anything else that works
-    # There is the raw HTML href option, but it is ugly AF
+    # There is the raw HTML href option, but it is ugly and extremely, extremely, hacky
     # Using ST components presents its own issue, as they are in sandboxed iframes
     js = f"window.open('{url}')" 
     html = '<img src onerror="{}">'.format(js)
     div = Div(text=html)
     st.bokeh_chart(div)
 
-def nav_to(url):
-    nav_script = """
-        <meta http-equiv="refresh" content="0; url='%s'">
-    """ % (url)
-    st.write(nav_script, unsafe_allow_html=True)
-
 def login_page(title, auth_url, error_state = False):
-    nav_to(auth_url)
-
     st.title(f'Welcome to {title}')
 
     if error_state:

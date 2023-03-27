@@ -3,12 +3,12 @@ base="dark"
 primaryColor="#00D9C5"
 
 [browser]
-gatherUsageStats = false
+gatherUsageStats = true
 
 [server]
 runOnSave = true
-enableCORS = false
-enableXsrfProtection = false
+enableCORS = true
+enableXsrfProtection = true
 
 [client]
 showErrorDetails = false
