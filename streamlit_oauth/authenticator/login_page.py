@@ -11,7 +11,15 @@ def navigate_to(url):
     div = Div(text=html)
     st.bokeh_chart(div)
 
+def nav_to(url):
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    st.write(nav_script, unsafe_allow_html=True)
+
 def login_page(title, auth_url, error_state = False):
+    nav_to(auth_url)
+
     st.title(f'Welcome to {title}')
 
     if error_state:
